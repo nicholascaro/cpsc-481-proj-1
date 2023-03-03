@@ -11,8 +11,10 @@ class WolfGoatCabbage(Problem):
     def result(self, state, action):
         """returns the new state reached from the given state
         and the given action. Assume that the action is valid."""
-
-        return state - action
+        if action.issubset(state):
+            return state - action
+        else:
+            return state.union(action)
 
     def actions(self, state):
         """returns a list of valid actions in the given state"""
@@ -45,7 +47,10 @@ if __name__ == '__main__':
     goal_test = wgc.goal_test(set())
     print('goal_test: ', goal_test)
 
-    result = wgc.result(set({'F', 'W', 'G', 'C'}), set({'F', 'G'}))
+    # result = wgc.result(set({'F', 'W', 'G', 'C'}), set({'F', 'G'}))
+    # print('new state: ', result)
+
+    result = wgc.result(set({'W'}), set({'F', 'C'}))
     print('new state: ', result)
 
     actions = wgc.actions(set({'F','G', 'C'}))
