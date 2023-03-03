@@ -1,7 +1,7 @@
 from search import *
 
 class WolfGoatCabbage(Problem):
-    def __init__(self, initial=frozenset({'F', 'W', 'G', 'C'}), goal=frozenset()):
+    def __init__(self, initial=frozenset({'F', 'W', 'G', 'C'}), goal=set()):
         super().__init__(initial, goal)
 
     def goal_test(self, state):
@@ -20,7 +20,7 @@ class WolfGoatCabbage(Problem):
         """returns a list of valid actions in the given state"""
 
         def is_restricted(state):
-            restrictions = [frozenset({'W', 'G'}), frozenset({'G', 'C'})]
+            restrictions = [set({'W', 'G'}), set({'G', 'C'})]
             for restriction in restrictions:
                 if restriction.issubset(state):
                     return True
@@ -29,31 +29,31 @@ class WolfGoatCabbage(Problem):
         actions = []
         # can farmer leave alone?
         bank = state.copy()
-        bank = bank - frozenset({'F'})
+        bank = bank - set({'F'})
         if not is_restricted(bank):
-            actions.append(frozenset({'F'}))
+            actions.append(set({'F'}))
 
         # can farmer take one item?
         for item in bank:
-           items = bank.copy() - frozenset({item})
+           items = bank.copy() - set({item})
            if not is_restricted(items):
-               actions.append(frozenset({'F', item}))
+               actions.append(set({'F', item}))
 
         return actions
 
 
 if __name__ == '__main__':
     wgc = WolfGoatCabbage()
-    goal_test = wgc.goal_test(frozenset())
+    goal_test = wgc.goal_test(set())
     print('goal_test: ', goal_test)
 
-    # result = wgc.result(frozenset({'F', 'W', 'G', 'C'}), frozenset({'F', 'G'}))
+    # result = wgc.result(set({'F', 'W', 'G', 'C'}), set({'F', 'G'}))
     # print('new state: ', result)
 
-    result = wgc.result(frozenset({'W'}), frozenset({'F', 'C'}))
+    result = wgc.result(set({'W'}), set({'F', 'C'}))
     print('new state: ', result)
 
-    actions = wgc.actions(frozenset({'F','G', 'C'}))
+    actions = wgc.actions(set({'F','G', 'C'}))
     print('actions: ', actions)
 
     solution = depth_first_graph_search(wgc).solution()
