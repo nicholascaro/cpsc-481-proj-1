@@ -18,19 +18,26 @@ class WolfGoatCabbage(Problem):
         """returns a list of valid actions in the given state"""
 
         def is_restricted(state):
-            restrictions = [{'W', 'G'}, {'G', 'C'}]
+            restrictions = [set({'W', 'G'}), set({'G', 'C'})]
             for restriction in restrictions:
                 if restriction.issubset(state):
                     return True
             return False
 
+        actions = []
+        # can farmer leave alone?
         bank = state.copy()
-
-
+        bank = bank - set({'F'})
         if not is_restricted(bank):
-            return [bank]
+            actions.append(set({'F'}))
 
-        return "to be implemented"
+        # can farmer take one item?
+        for item in bank:
+           items = bank.copy() - set({item})
+           if not is_restricted(items):
+               actions.append(set({'F', item}))
+
+        return actions
 
 
 if __name__ == '__main__':
@@ -41,7 +48,7 @@ if __name__ == '__main__':
     result = wgc.result(set({'F', 'W', 'G', 'C'}), set({'F', 'G'}))
     print('new state: ', result)
 
-    actions = wgc.actions(set({'F', 'W', 'G', 'C'}))
+    actions = wgc.actions(set({'F','G', 'C'}))
     print('actions: ', actions)
 
     # solution = depth_first_graph_search(wgc).solution()
