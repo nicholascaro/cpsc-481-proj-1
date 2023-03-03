@@ -1,7 +1,7 @@
 from search import *
 
 class WolfGoatCabbage(Problem):
-    def __init__(self, initial, goal=({}, {'F', 'W', 'G', 'C'})):
+    def __init__(self, initial=({'F', 'W', 'G', 'C'}, {}), goal=({}, {'F', 'W', 'G', 'C'})):
         super().__init__(initial, goal)
 
     def goal_test(self, state):
