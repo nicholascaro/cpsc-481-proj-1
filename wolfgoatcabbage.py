@@ -27,6 +27,8 @@ class WolfGoatCabbage(Problem):
             return False
 
         actions = []
+
+        # action is determined on the bank where farmer resides
         bank = state if 'F' in state else set({'F', 'W', 'G', 'C'}) - state
 
         # can farmer leave alone?
