@@ -27,15 +27,16 @@ class WolfGoatCabbage(Problem):
             return False
 
         actions = []
+        bank = state if 'F' in state else set({'F', 'W', 'G', 'C'}) - state
+
         # can farmer leave alone?
-        bank = state.copy()
         bank = bank - set({'F'})
         if not is_restricted(bank):
             actions.append(set({'F'}))
 
         # can farmer take one item?
         for item in bank:
-           items = bank.copy() - set({item})
+           items = bank - set({item})
            if not is_restricted(items):
                actions.append(set({'F', item}))
 
@@ -53,7 +54,7 @@ if __name__ == '__main__':
     result = wgc.result(set({'W'}), set({'F', 'C'}))
     print('new state: ', result)
 
-    actions = wgc.actions(set({'F','G', 'C'}))
+    actions = wgc.actions(set({'G'}))
     print('actions: ', actions)
 
     solution = depth_first_graph_search(wgc).solution()
