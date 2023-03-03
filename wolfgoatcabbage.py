@@ -6,11 +6,13 @@ class WolfGoatCabbage(Problem):
 
     def goal_test(self, state):
         """returns True if the given state is a goal state"""
-        pass
+        return state == self.goal
+
     def result(self, state, action):
         """returns the new state reached from the given state
         and the given action. Assume that the action is valid."""
         pass
+
     def actions(self, state):
         """returns a list of valid actions in the given state"""
         pass
