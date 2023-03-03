@@ -22,7 +22,30 @@ class WolfGoatCabbage(Problem):
 
     def actions(self, state):
         """returns a list of valid actions in the given state"""
-        pass
+
+        def is_restricted(state):
+            """returns True if the given state is restricted"""
+            restrictions = [{'W', 'G'}, {'G', 'C'}]
+            for restriction in restrictions:
+                if restriction.issubset(state):
+                    return True
+            return False
+
+        actions = []
+        bank = state[0] if 'F' in state[0] else state[1]
+
+        # can farmer return alone?
+        bank = bank.copy()
+        bank.remove('F')
+        if not is_restricted(bank):
+            actions.append({'F'})
+
+        # can farmer return with one item?
+        for item in bank:
+            items = bank.copy()
+            items.remove(item)
+            if not is_restricted(items):
+                actions.append({'F', item})
 
 
 if __name__ == '__main__':
