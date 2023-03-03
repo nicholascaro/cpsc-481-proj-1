@@ -1,16 +1,14 @@
 from search import *
-# YOUR CODE GOES HERE
 
 class WolfGoatCabbage(Problem):
-    def __init__(self, initial, goal=None):
+    def __init__(self, initial, goal=({}, {'F', 'W', 'G', 'C'})):
         super().__init__(initial, goal)
 
-    
     def goal_test(self, state):
         """returns True if the given state is a goal state"""
         pass
     def result(self, state, action):
-        """returns the new state reached from the given state 
+        """returns the new state reached from the given state
         and the given action. Assume that the action is valid."""
         pass
     def actions(self, state):
